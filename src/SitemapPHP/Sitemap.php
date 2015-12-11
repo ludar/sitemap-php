@@ -179,7 +179,7 @@ class Sitemap {
 	 * @param string|int $lastmod The date of last modification of url. Unix timestamp or any English textual datetime description.
 	 * @return Sitemap
 	 */
-	public function addItem($loc, $priority = self::DEFAULT_PRIORITY, $changefreq = NULL, $lastmod = NULL) {
+	public function addItem($loc, $priority = NULL, $changefreq = NULL, $lastmod = NULL) {
 		if (($this->getCurrentItem() % self::ITEM_PER_SITEMAP) == 0) {
 			if ($this->getWriter() instanceof \XMLWriter) {
 				$this->endSitemap();
@@ -190,7 +190,8 @@ class Sitemap {
 		$this->incCurrentItem();
 		$this->getWriter()->startElement('url');
 		$this->getWriter()->writeElement('loc', $this->getDomain() . $loc);
-		$this->getWriter()->writeElement('priority', $priority);
+		if ($priority)
+			$this->getWriter()->writeElement('priority', $priority);
 		if ($changefreq)
 			$this->getWriter()->writeElement('changefreq', $changefreq);
 		if ($lastmod)
