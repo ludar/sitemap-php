@@ -27,7 +27,7 @@ class Sitemap {
 	private $current_item = 0;
 	private $current_sitemap = 0;
 
-	const EXT = '.xml';
+	const EXT = '.xml.gz';
 	const SCHEMA = 'http://www.sitemaps.org/schemas/sitemap/0.9';
 	const DEFAULT_PRIORITY = 0.5;
 	const ITEM_PER_SITEMAP = 50000;
@@ -85,7 +85,7 @@ class Sitemap {
 	 * @return string
 	 */
 	private function getPath() {
-		return $this->path;
+		return 'compress.zlib://' . $this->path;
 	}
 
 	/**
